@@ -11,44 +11,75 @@ datasource db {
 }
 
 model Product {
-  id          Int     @id @default(autoincrement())
-  name        String
-  description String?
-  brandId     Int?
-  brand       Brand?  @relation(fields: [brandId], references: [id])
-
-  categoryId  Int
-  category    Category      @relation(fields: [categoryId], references: [id])
-  ProductItem ProductItem[]
-  updatedAt   DateTime      @default(now()) @updatedAt
-  createdAt   DateTime      @default(now())
+  id           Int           @id @default(autoincrement())
+  name         String
+  description  String?
+  brandId      Int?
+  brand        Brand?        @relation(fields: [brandId], references: [id])
+  categoryId   Int
+  category     Category      @relation(fields: [categoryId], references: [id])
+  productItems ProductItem[]
+  updatedAt    DateTime      @default(now()) @updatedAt
+  createdAt    DateTime      @default(now())
 }
 
 model ProductItem {
-  id            Int      @id @default(autoincrement())
+  id            Int            @id @default(autoincrement())
   productId     Int
-  product       Product  @relation(fields: [productId], references: [id])
-  originalPrica Decimal
+  product       Product        @relation(fields: [productId], references: [id])
+  originalPrice Decimal
   salePrice     Decimal
-  isFeatured    Boolean  @default(false)
-  updatedAt     DateTime @default(now()) @updatedAt
-  createdAt     DateTime @default(now())
+  isFeatured    Boolean        @default(false)
+  productImages ProductImage[]
+  colorId       Int
+  color         Color          @relation(fields: [colorId], references: [id])
+  sizeId        Int
+  size          Size           @relation(fields: [sizeId], references: [id])
+  updatedAt     DateTime       @default(now()) @updatedAt
+  createdAt     DateTime       @default(now())
 }
 
 model Category {
-  id          Int       @id @default(autoincrement())
-  name        String
-  description String?
-  Product     Product[]
-  updatedAt   DateTime  @default(now()) @updatedAt
-  createdAt   DateTime  @default(now())
+  id               Int        @id @default(autoincrement())
+  name             String
+  description      String?
+  parentCategoryId Int?       @unique
+  parentCategory   Category?  @relation("ParentChildCategory", fields: [parentCategoryId], references: [id])
+  childCategories  Category[] @relation("ParentChildCategory")
+  products         Product[]
+  sizes            Size[]
+  updatedAt        DateTime   @default(now()) @updatedAt
+  createdAt        DateTime   @default(now())
 }
 
 model Brand {
   id          Int       @id @default(autoincrement())
   name        String
   description String?
-  Product     Product[]
+  products    Product[]
   updatedAt   DateTime  @default(now()) @updatedAt
   createdAt   DateTime  @default(now())
+}
+
+model Size {
+  id           Int           @id @default(autoincrement())
+  name         String
+  abbreviation String
+  categoryId   Int
+  category     Category      @relation(fields: [categoryId], references: [id])
+  productItems ProductItem[]
+}
+
+model Color {
+  id           Int           @id @default(autoincrement())
+  name         String
+  hexColor     String
+  productItems ProductItem[]
+}
+
+model ProductImage {
+  id            Int         @id @default(autoincrement())
+  productItemId Int
+  productItem   ProductItem @relation(fields: [productItemId], references: [id])
+  url           String
 }
