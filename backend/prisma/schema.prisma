@@ -69,6 +69,8 @@ model Size {
   categoryId   Int
   category     Category      @relation(fields: [categoryId], references: [id])
   productItems ProductItem[]
+  updatedAt    DateTime      @default(now()) @updatedAt
+  createdAt    DateTime      @default(now())
 }
 
 model Color {
@@ -76,6 +78,8 @@ model Color {
   name         String
   hexColor     String
   productItems ProductItem[]
+  updatedAt    DateTime      @default(now()) @updatedAt
+  createdAt    DateTime      @default(now())
 }
 
 model ProductImage {
@@ -83,4 +87,6 @@ model ProductImage {
   productItemId Int
   productItem   ProductItem @relation(fields: [productItemId], references: [id])
   url           String
+  updatedAt     DateTime    @default(now()) @updatedAt
+  createdAt     DateTime    @default(now())
 }
