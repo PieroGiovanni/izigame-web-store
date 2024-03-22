@@ -7,10 +7,11 @@ import {
   Param,
   Post,
   Put,
+  UsePipes,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from '@prisma/client';
-
+import { CreateProductDto } from '../dto/product/create-product.dto';
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -31,8 +32,8 @@ export class ProductController {
   }
 
   @Post()
-  async createProduct(@Body() data: Product) {
-    return this.productService.createProduct(data);
+  async createProduct(@Body() createProductDto: CreateProductDto) {
+    return this.productService.createProduct(createProductDto);
   }
 
   @Put(':id')
