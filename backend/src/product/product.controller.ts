@@ -12,6 +12,7 @@ import {
 import { ProductService } from './product.service';
 import { Product } from '@prisma/client';
 import { CreateProductDto } from '../dto/product/create-product.dto';
+import { AddProductVariantDto } from '../dto/product/add-prodduct-variant.dto';
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -33,7 +34,12 @@ export class ProductController {
 
   @Post()
   async createProduct(@Body() createProductDto: CreateProductDto) {
-    return this.productService.createProduct(createProductDto);
+    return await this.productService.createProduct(createProductDto);
+  }
+
+  @Post()
+  async addProductVariant(@Body() addProductVariantDto: AddProductVariantDto) {
+    return await this.productService.addProductVariant(addProductVariantDto);
   }
 
   @Put(':id')

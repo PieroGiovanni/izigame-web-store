@@ -1,34 +1,16 @@
 import {
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
-  IsArray,
   Min,
-  IsBoolean,
 } from 'class-validator';
 
-export class CreateProductDto {
-  @IsNotEmpty()
-  @IsString()
-  name: string;
-
-  @IsOptional()
-  @IsString()
-  description?: string;
-
+export class AddProductVariantDto {
   @IsNotEmpty()
   @IsNumber()
-  brandId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  categoryId: number;
-
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
-  tags?: string[];
+  productId: number;
 
   @IsNotEmpty()
   @IsNumber()
