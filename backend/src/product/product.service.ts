@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Product, ProductImage, ProductItem } from '@prisma/client';
 import { CreateProductDto } from '../dto/product/create-product.dto';
-import { AddProductVariantDto } from '../dto/product/add-prodduct-variant.dto';
+import { AddProductVariantDto } from '../dto/product/add-product-variant.dto';
 
 @Injectable()
 export class ProductService {
