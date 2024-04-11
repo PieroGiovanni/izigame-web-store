@@ -1,7 +1,10 @@
 <template>
-  <div class="h-screen dark:bg-slate-800">
-    <p>this is shared</p>
-    <slot />
+  <div class="flex flex-col min-h-screen">
+    <Header />
+    <div class="flex-1">
+      <slot />
+    </div>
+    <Footer />
   </div>
 </template>
 
